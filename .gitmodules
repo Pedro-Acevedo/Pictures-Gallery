@@ -1,3 +1,0 @@
-[submodule "JWT-Auth"]
-	path = JWT-Auth
-	url = https://github.com/Pedro-Acevedo/JWT-Auth
