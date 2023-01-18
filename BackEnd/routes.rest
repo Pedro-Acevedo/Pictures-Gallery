@@ -1,0 +1,47 @@
+
+GET http://localhost:3000/users/
+
+###
+POST  http://localhost:3000/users/new
+Content-Type: application/json
+ 
+{
+    "name": "Peter",
+    "username": "PeterAce",
+    "password": "123"
+}
+
+
+###
+PATCH  http://localhost:3000/users/63b896a562c3e252d9232a5a
+Content-Type:  application/json
+
+{
+    "username": "LJ23"
+}
+
+###
+DELETE http://localhost:3000/users/63b961d63fcea0bb2f028d69
+
+###
+GET http://localhost:3000/users/post
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGV0ZXJBY2UiLCJpYXQiOjE2NzM3MjU5NTV9.hv_XDjlQotivErlIY5iWPq9WIsejleNSyFD4dGn-zIs
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username": "m",
+    "password": "123"
+}
+###
+
+get http://localhost:4000/token
+
+###
+GET http://localhost:4000/logout
+
+
+###
