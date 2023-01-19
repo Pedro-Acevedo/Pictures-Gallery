@@ -3,7 +3,13 @@ if(process.env.NODE_ENV !== 'production'){
 }
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
 app.use(express.json()) 
+app.use(cors({
+    origin: 'http://127.0.0.1:5173',
+    credentials: true
+}))
 
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)

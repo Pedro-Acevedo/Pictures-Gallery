@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 const User = require('./model/user')
 const Token = require('./model/token')
 const bcrypt = require('bcrypt')
+const cors = require('cors')
 const cookieParser = require ('cookie-parser')
 app.use(express.json()) 
 app.use(cookieParser())
@@ -16,58 +17,17 @@ mongoose.set('strictQuery', false)
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true } )
 const db = mongoose.connection
  
+
+app.use(cors({
+    origin: 'http://127.0.0.1:5173',
+    credentials: true
+}))
+
 db.on('error', err => {console.log(err)})
 db.once('open', () => console.log('DB Connected'))
 
 app.post('/login', validateEmptyFields, validateCredentials, async(req, res) =>{
-    // validateEmptyFields(req.body.username, req.body.password, res)
-    // try{
-    //     let query = User.findOne({})
-    //     query = query.regex('userName', new RegExp(req.body.username, 'i'))
-    //     const user = await query.exec()
-
-    //     if (user == null){
-    //         return res.send('no user')
-    //     }
-    //     if( req.body.username.toUpperCase() !== user.userName.toUpperCase() ){
-    //         return res.send('Username is wrong')
-    //     }    
-    //     if( await bcrypt.compare( req.body.password, user.password) ){
-    //         const username = { name: req.body.username}
-    //         const accessToken = generateAccessToken(username)
-    //         const refreshToken = generateRefreshToken(username)
-    //         const userID = user._id
-    //         const searchToken = await Token.findOne({user: userID})
-    //         if(searchToken == null){
-    //             const newRefreshToken = new Token({
-    //                 token: refreshToken,
-    //                 user: user._id
-    //             })
-    //             await newRefreshToken.save()
-    //             // Set secure: true in produccion
-    //             res.cookie('jwt', newRefreshToken.token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000
-    //                 , secure:process.env.SECURE 
-    //             })
-    //             res.json({ accessToken : accessToken })
-    //         } else {
-    //             let updateToken = await Token.findOneAndUpdate(
-    //                     {user: user._id}, 
-    //                     {token: refreshToken} , 
-    //                     {new: true}
-    //                 )
-    //                 // JWT cookie was created as httpOnly so it can't be modified with Js
-    //                 // Set secure: true in produccion
-    //                 res.cookie('jwt', updateToken.token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000,    secure:process.env.SECURE 
-    //                 })
-    //                 res.json({ user: user ,accessToken : accessToken })       
-    //             }   
-    //     } else {
-    //             res.send('Wrong Password')
-    //     }
-        
-    // } catch (err) {
-    //     res.json({ message: err.message })
-    // }
+   
 })
 
 app.get('/token', async(req, res) =>{
